@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shenji Game</title>
+</head>
+<body>
+    <h1>Civilization Simulator</h1>
+    <div id="gameState">
+        <!-- Game state will be displayed here -->
+    </div>
+    <button id="updateButton">Update Game</button>
+    <script>
+        async function fetchGameState() {
+        const response = await fetch('/game_state');
+        const data = await response.json();
+        document.getElementById('gameState').innerHTML = JSON.stringify(data, null, 2);
+    }
+
+    document.getElementById('updateButton').addEventListener('click', async () => {
+        await fetch('/update_game');
+        fetchGameState();
+    });
+
+    fetchGameState();
+    </script>
+</body>
+</html>
